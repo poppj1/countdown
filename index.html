@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usflug Countdown</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Ensure body takes full viewport height for centering */
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full">
+        <!-- Removed the h1 title as requested -->
+        <p class="text-2xl md:text-3xl text-gray-700 mb-2">No</p>
+        <div id="countdown" class="text-6xl md:text-7xl font-extrabold text-indigo-700 mb-2">
+            --
+        </div>
+        <p class="text-xl md:text-2xl text-gray-600">schlafe bis zum Usflug is Verkehrshus mitem Götti</p>
+    </div>
+
+    <script>
+        // Function to calculate and display the countdown
+        function updateCountdown() {
+            // Target date: August 6, 2025
+            // Note: Month is 0-indexed in JavaScript (August is 7)
+            const targetDate = new Date(2025, 7, 6); // Year, Month (0-11), Day
+
+            // Get the current date
+            const now = new Date();
+
+            // To calculate nights, we want to consider the start of each day.
+            // So, we'll set the time of both dates to midnight for consistent calculation.
+            targetDate.setHours(0, 0, 0, 0);
+            now.setHours(0, 0, 0, 0);
+
+            // Calculate the difference in milliseconds
+            const differenceMs = targetDate.getTime() - now.getTime();
+
+            // Convert milliseconds to days
+            // 1 day = 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+            const oneDayMs = 1000 * 60 * 60 * 24;
+            let nights = Math.floor(differenceMs / oneDayMs);
+
+            // If the target date is today or in the past, display 0 nights.
+            // This handles cases where the target date is reached or passed.
+            if (nights < 0) {
+                nights = 0;
+            }
+
+            // Get the countdown element
+            const countdownElement = document.getElementById('countdown');
+
+            // Update the countdown display
+            countdownElement.textContent = nights;
+        }
+
+        // Initial call to display the countdown immediately
+        updateCountdown();
+
+        // Update the countdown every minute (or daily, but minute is good for testing/demonstration)
+        // For "nights", updating once a day (e.g., at midnight) would be more accurate.
+        // For simplicity and immediate visual feedback, we'll use an interval here.
+        setInterval(updateCountdown, 60 * 1000); // Update every minute
+    </script>
+</body>
+</html>
