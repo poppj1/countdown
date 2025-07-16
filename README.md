@@ -1,2 +1,2 @@
 # countdown
-Lina's Countdown for the Verkehrshaus
+Lina's Countdown for the Verkehrshaus.
